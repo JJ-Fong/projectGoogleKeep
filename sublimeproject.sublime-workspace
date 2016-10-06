@@ -1,0 +1,321 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"on",
+				"onFocus"
+			],
+			[
+				"create",
+				"createStore"
+			],
+			[
+				"pro",
+				"props"
+			],
+			[
+				"visibilit",
+				"visibilityFilter"
+			],
+			[
+				"border-col",
+				"border-color"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"align",
+				"align-content"
+			],
+			[
+				"font",
+				"font-style"
+			],
+			[
+				"text-a",
+				"text-align"
+			],
+			[
+				"com",
+				"combineReducers"
+			],
+			[
+				"get",
+				"getState"
+			],
+			[
+				"ge",
+				"getState"
+			],
+			[
+				"di",
+				"dispatch"
+			],
+			[
+				"bor",
+				"border-radius"
+			],
+			[
+				"fon",
+				"font-size"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 325.0,
+		"last_filter": "syntax cs",
+		"selected_items":
+		[
+			[
+				"syntax cs",
+				"Set Syntax: CSS"
+			],
+			[
+				"sort",
+				"Sort Lines"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"set syntax java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"ja",
+				"Set Syntax: JavaScript (Rails)"
+			]
+		],
+		"width": 490.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src"
+	],
+	"file_history":
+	[
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/js/reducers/input.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/js/reducers/list.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/EREA/observaciones",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/js/reducers/items.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/js/reducers/todo.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/todo-react/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/projectGoogleKeep/package.json",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/todo-react/src/js/reducers/todos.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/todo-react/src/js/reducers/visibility.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/todo-react/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/hackathon/models.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/hackathon/urls.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/static/js/HCSendData.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/static/css/styleScores.css",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathon-high-scores.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/static/css/resultstyle.css",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathonResultados.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/hackathon/views.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathon-sign-up.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathon-log-in.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathonHeader.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/static/css/hackathon-home.css",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathon-home.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathonHuellaCarbono.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathonResultados.hmtl",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/static/img/dinero.png",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/ambientapp/urls.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/hackathon/forms.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp viewports/public/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/ambientapp/settings.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/post/urls.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/post/views.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/post/models.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/post/form.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/post-create.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/hackathon-lg-in.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/post-index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/templates/create.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/src/post/admin.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/ambientapp/mysite/urls.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/ambientapp/mysite/views.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/ambientApp/ambientapp/ambientapp/urls.py",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta ToDo/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta ToDo/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta-Semaforo/src/css/style.css",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta-Semaforo/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta-Semaforo/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/basic-webpack-setup/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Semaforo/src/js/client.js",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Semaforo/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Semaforo/npm-debug.log.2507913425",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/basic-webpack-setup/src/index.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Semaforo/package.json",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/basic-webpack-setup/package.json",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Reloj/maquetaReloj/public/maqueta.html",
+		"/C/Users/Javier Fong/Documents/Universidad/2016/Ciclo 2/Web/Maqueta Reloj/maquetaReloj/public/js/maqueta.js"
+	],
+	"find":
+	{
+		"height": 43.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"DEFAULT",
+			"WRITER",
+			"LIST",
+			"import",
+			"td",
+			" %}",
+			"images",
+			"\"'>|</",
+			"		\n",
+			"\n});",
+			"itsOver"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"th",
+			"/static/img/"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 43.0
+	},
+	"input":
+	{
+		"height": 38.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sublimeproject.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 286.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
