@@ -8,6 +8,9 @@ import v4 from 'uuid-v4';
 import { input, listItemsInput } from './reducers/input'; 
 import { lists } from './reducers/list'
 import { notes } from './reducers/note'
+import { name_filter } from './reducers/nameFilter'
+import { item_filter } from './reducers/itemFilter'
+import { todo_filter } from './reducers/todoFilter'
 
 const { Component } = React;
 
@@ -17,19 +20,28 @@ const reducers = combineReducers({
   input,
   listItemsInput,
   lists, 
-  notes
+  notes,
+  name_filter,
+  item_filter
 });
 
 const store = createStore(reducers, persistedState); 
 
-/*
-
-state = {
-  selector: (0|1|2), 
-  item: [(item)*]
-} 
-
-*/
+const getVisibleItems = (list, name_filter, item_filter) => {
+  switch (item_filter){ 
+    case 'NOTAS': 
+      list = list.filter(item => (item.item_code != 1)); 
+      break; 
+    case 'LISTAS': 
+      list = list.filter(item => (item.item_code != 0)); 
+      break;
+  }
+  if (name_filter > '') { 
+    list = list.filter(item => (item.title.includes(name_filter))); 
+  }
+  list = list.filter(item => (!item.archived)); 
+  return list; 
+};
 
 const mergeListByDate = (list1, list2) => { 
   let final_list = []
@@ -82,7 +94,7 @@ const ItemFooter = ({ item }) => {
           ); 
         }
       }
-      style={{ width: "50px" }}>
+      style={{ width: "100px" }}>
         <option value="yellow" style={{ backgroundColor: "yellow" }}></option>
         <option value="blue" style={{ backgroundColor: "blue" }}></option>
         <option value="pink" style={{ backgroundColor: "pink" }}></option>
@@ -114,7 +126,7 @@ const ListFooter = ({ item }) => {
           ); 
         }
       }
-      style={{ width: "50px" }}>
+      style={{ width: "100px" }}>
         <option value="yellow" style={{ backgroundColor: "yellow" }}></option>
         <option value="blue" style={{ backgroundColor: "blue" }}></option>
         <option value="pink" style={{ backgroundColor: "pink" }}></option>
@@ -153,13 +165,12 @@ const Note = ({ note }) => {
     >
       <h1> { note.title }</h1> 
       <h3> { note.description } </h3>
-      <cite> Creado el { note.created }</cite> <br/>
-      <cite> Ultima modificacion: { note.last_mod } </cite> 
+      <cite> Created { note.created }</cite> <br/>
+      <cite> Last modified { note.last_mod } </cite> 
       <ItemFooter item = { note }/> 
     </div> 
   ); 
 }; 
-
 
 const Todo = ({ parent, todo }) => {
   return (
@@ -192,13 +203,14 @@ const Todo = ({ parent, todo }) => {
   ); 
 }
 
-const List = ({ list }) => {
+const List = ({ list , todo_filter }) => {
   return (
     <div 
       style =  {{
         backgroundColor: list.color,
         padding: "10px",
-        margin: "10px"
+        margin: "10px",
+        roundRatio: "10%"
       }}
     >
       <h1> { list.title }</h1> 
@@ -210,15 +222,16 @@ const List = ({ list }) => {
         )
       }
       </ul>
-      <cite> Creado el { list.created }</cite> <br/>
-      <cite> Ultima modificacion: { list.last_mod } </cite> 
+      <cite> Created { list.created }</cite> <br/>
+      <cite> Last modified { list.last_mod } </cite> 
       <ListFooter item = { list }/> 
     </div>  
   );
 }; 
 
-const AppBody = ({ lists, notes }) => { 
+const AppBody = ({ lists, notes , name_filter, item_filter, todo_filter}) => { 
   let items = mergeListByDate(lists, notes); 
+  items = getVisibleItems(items, name_filter, item_filter, todo_filter);
   return (
     <div> 
     {
@@ -424,20 +437,74 @@ const LastItem = ({ identity, text }) => {
   ); 
 };
 
-const SearchBox = ({}) => {
-  let searchBox; 
+const SearchBox = ({ name_filter, item_filter, todo_filter }) => {
+  let searchBox, itemBox, todoBox; 
   return (
     <div>
-    <input placeholder="SearchBox"/>     
+    <input placeholder="SearchBox" ref={ node => searchBox = node}
+    onChange = {
+      () => {
+        store.dispatch({
+          type: 'SET_NAME_FILTER',
+          payload: {
+            filter: searchBox.value
+          }
+        });
+      }
+    }
+    value = { name_filter }
+    /> 
+    <select ref={ node => itemBox = node }
+      onChange = { 
+        () => {
+          store.dispatch(
+            {
+              type: 'SET_ITEM_FILTER', 
+              payload: {
+                filter: itemBox.value
+              }
+            }
+          ); 
+        }
+      }
+      style={{ width: "200px" }}
+      value = { item_filter }>
+        <option value="NOTAS Y LISTAS">Notas y Listas</option>
+        <option value="NOTAS">Solo Notas</option>
+        <option value="LISTAS">Solo Listas</option>
+      </select>   
+      <select ref={ node => todoBox = node }
+      onChange = { 
+        () => {
+          store.dispatch(
+            {
+              type: 'SET_TODO_FILTER', 
+              payload: {
+                filter: todoBox.value
+              }
+            }
+          ); 
+        }
+      }
+      style={{ width: "200px" }}
+      value = { todo_filter }>
+        <option value="ALL">Todos</option>
+        <option value="COMPLETED">Completados</option>
+        <option value="UNCOMPLETE">Por Completar</option>
+      </select>  
     </div>
   );
 }
 
-const KeepApp = ({ input, listItemsInput, lists, notes }) => {
+const KeepApp = ({ input, listItemsInput, lists, notes, name_filter, item_filter, todo_filter}) => {
   return (
     <div> 
       <h1>Keep Project</h1>
-      <SearchBox/> 
+      <SearchBox 
+        name_filter={ name_filter }
+        item_filter={ item_filter }
+        todo_filter={ todo_filter } 
+      /> 
 
       <InputField
         selected={ input }
@@ -446,13 +513,15 @@ const KeepApp = ({ input, listItemsInput, lists, notes }) => {
       <AppBody 
         lists = { lists }
         notes = { notes }
+        name_filter={ name_filter }
+        item_filter={ item_filter }
+        todo_filter={ todo_filter }
       /> 
     </div>
   );
 };
 
 const render = () => {
-  console.log(store.getState());
   ReactDOM.render
   ( <KeepApp { ...store.getState() }/>,
     document.getElementById('root')

@@ -21,6 +21,7 @@ def todo {
 }
 
 */
+import moment from 'moment';
 
 const lists = (state = [], action) => {
 	switch (action.type) {
@@ -35,7 +36,8 @@ const lists = (state = [], action) => {
       state.map ( item => {
         let new_item = item; 
         if (new_item.id === action.payload.id) {
-          new_item.color = action.payload.color; 
+          new_item.color = action.payload.color;  
+          new_item.last_mod = moment().format('LLLL');
         }
         new_state.push(new_item); 
       });
@@ -51,7 +53,8 @@ const lists = (state = [], action) => {
             id: action.payload.child_id,
             text: action.payload.text,
             completed: false
-          }); 
+          });  
+          new_item.last_mod = moment().format('LLLL');
         }
         new_state.push(new_item); 
       });
@@ -63,7 +66,8 @@ const lists = (state = [], action) => {
       state.map ( item => {
         let new_item = item; 
         if (new_item.id === action.payload.parent_id) {
-          new_item.todos = new_item.todos.filter(t => (t.id != action.payload.child_id)) 
+          new_item.todos = new_item.todos.filter(t => (t.id != action.payload.child_id))  
+          new_item.last_mod = moment().format('LLLL');
         }
         new_state.push(new_item); 
       });
