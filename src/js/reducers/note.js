@@ -25,7 +25,7 @@ const notes = (state = [], action)  => {
 			return new_state; 
 		}
 
-		case 'ARCHIVAR_ITEM': {
+		case 'TOOGLE_ARCHIVAR_ITEM': {
 			let new_state = [];
 			state.map ( item => {
 				let new_item = item; 

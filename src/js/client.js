@@ -6,7 +6,7 @@ import expect from 'expect';
 import moment from 'moment';
 import v4 from 'uuid-v4';
 import { input, listItemsInput } from './reducers/input'; 
-import { lists, todo } from './reducers/list'
+import { lists } from './reducers/list'
 import { notes } from './reducers/note'
 
 const { Component } = React;
@@ -35,15 +35,33 @@ const mergeListByDate = (list1, list2) => {
   let final_list = []
   let list1Counter = 0; 
   let list2Counter = 0; 
-  while ((list1Counter < list1.length)&&(list2Counter < list2.length)) { 
-    let currentItem1 = list1[list1Counter]; 
-    let currentItem2 = list2[list2Counter]; 
-    if (currentItem2.created_int > currentItem1.created_int) { 
+  let currentItem1, currentItem2; 
 
+  while ((list1Counter < list1.length)&&(list2Counter < list2.length)) { 
+    currentItem1 = list1[list1Counter]; 
+    currentItem2 = list2[list2Counter]; 
+    if (currentItem2.created_int < currentItem1.created_int) { 
+      final_list.push(currentItem2); 
+      list2Counter = list2Counter + 1; 
     } else {
-      
+      final_list.push(currentItem1); 
+      list1Counter = list1Counter + 1; 
     }
   }
+
+  while (list1Counter < list1.length) { 
+    currentItem1 = list1[list1Counter];
+    final_list.push(currentItem1); 
+    list1Counter = list1Counter + 1; 
+  }
+
+  while (list2Counter < list2.length) { 
+    currentItem2 = list2[list2Counter];
+    final_list.push(currentItem2); 
+    list2Counter = list2Counter + 1; 
+  }
+
+  return final_list; 
 }; 
 
 const ItemFooter = ({ item }) => {
@@ -77,6 +95,53 @@ const ItemFooter = ({ item }) => {
   );
 }; 
 
+const ListFooter = ({ item }) => {
+  let combobox;
+  let new_todo;  
+  return (
+    <div style={{ alignContent: "right", margin: "10px 0"}}>
+      Color: <select ref={ node => combobox = node }
+      onChange = { 
+        () => {
+          store.dispatch(
+            {
+              type: 'MOD_ITEM_COLOR', 
+              payload: {
+                color: combobox.value,
+                id: item.id
+              }
+            }
+          ); 
+        }
+      }
+      style={{ width: "50px" }}>
+        <option value="yellow" style={{ backgroundColor: "yellow" }}></option>
+        <option value="blue" style={{ backgroundColor: "blue" }}></option>
+        <option value="pink" style={{ backgroundColor: "pink" }}></option>
+        <option value="green" style={{ backgroundColor: "green"}}></option>
+      </select>
+
+      <button>Archivar</button> 
+      <button>Edit</button>
+      <input placeholder="Nuevo Input" ref={ node => new_todo = node}/> 
+      <button
+      onClick = {
+        () => {
+          store.dispatch({
+            type: 'ADD_TODO', 
+            payload: {
+              parent_id: item.id, 
+              child_id: v4(), 
+              text: new_todo.value, 
+            }
+          });
+          new_todo.value = "";
+        }
+      }>Agregar</button>  
+    </div> 
+  );
+};
+
 const Note = ({ note }) => {
   return (
     <div 
@@ -95,20 +160,70 @@ const Note = ({ note }) => {
   ); 
 }; 
 
+
+const Todo = ({ parent, todo }) => {
+  return (
+    <div
+    onClick = {
+      () => {
+        store.dispatch({
+          type: 'TOGGLE_TODO',
+          payload: {
+            parent_id: parent, 
+            child_id: todo.id
+          }
+        })
+      }
+    }
+    ><li style={{
+      textDecoration: todo.completed ? 'line-through' : 'none'
+    }}>{ todo.text }<button 
+    onClick = {
+      () => {
+        store.dispatch({
+          type: 'DEL_TODO',
+          payload: {
+            parent_id: parent,
+            child_id: todo.id
+          }
+        })
+      }
+    }>X</button></li></div>
+  ); 
+}
+
 const List = ({ list }) => {
   return (
-    <div>
-    </div> 
+    <div 
+      style =  {{
+        backgroundColor: list.color,
+        padding: "10px",
+        margin: "10px"
+      }}
+    >
+      <h1> { list.title }</h1> 
+      <ul>
+      {
+        list.todos.map( todo => (
+          <Todo key={ todo.id } parent={ list.id } todo={ todo }/> 
+        )
+        )
+      }
+      </ul>
+      <cite> Creado el { list.created }</cite> <br/>
+      <cite> Ultima modificacion: { list.last_mod } </cite> 
+      <ListFooter item = { list }/> 
+    </div>  
   );
 }; 
 
 const AppBody = ({ lists, notes }) => { 
-  console.log(notes); 
+  let items = mergeListByDate(lists, notes); 
   return (
     <div> 
     {
-      notes.map( note => (
-        <Note  key = { note.id } note ={ note }/> 
+      items.map( item => (
+        item.item_code===0 ? <Note key={item.id} note={ item }/> : <List key={item.id} list={ item }/> 
       )
       )
     }
@@ -170,7 +285,8 @@ const InputField = ({ selected, listitems }) => {
                   created: moment().format('LLLL'),
                   last_mod: moment().format('LLLL'),
                   created_int: Date.now(), 
-                  last_mod_int: Date.now()
+                  last_mod_int: Date.now(),
+                  item_code: 0
                 }
               });
               input.value = ""; 
@@ -202,9 +318,6 @@ const InputField = ({ selected, listitems }) => {
             )
             )
           }
-          {
-            console.log(lastItem)
-          }
           <LastItem key = { lastItem.id }  identity={ lastItem.id } text={ lastItem.text } />
           <button onClick={
             () => {
@@ -214,13 +327,15 @@ const InputField = ({ selected, listitems }) => {
                   type: 'ADD_LIST', 
                   payload: {
                     id: v4(), 
-                    titulo: input.value,
+                    title: input.value,
+                    color: 'yellow',
                     created: moment().format('LLLL'),
                     last_mod: moment().format('LLLL'),
                     created_int: Date.now(),
                     last_mod_int: Date.now(), 
                     archived: false, 
-                    todos: listitems
+                    todos: listitems,
+                    item_code: 1
                   }
                 }
               ); 
@@ -309,10 +424,21 @@ const LastItem = ({ identity, text }) => {
   ); 
 };
 
-const KeepApp = ({ input, listItemsInput, list, notes }) => {
+const SearchBox = ({}) => {
+  let searchBox; 
+  return (
+    <div>
+    <input placeholder="SearchBox"/>     
+    </div>
+  );
+}
+
+const KeepApp = ({ input, listItemsInput, lists, notes }) => {
   return (
     <div> 
       <h1>Keep Project</h1>
+      <SearchBox/> 
+
       <InputField
         selected={ input }
         listitems={ listItemsInput } 
