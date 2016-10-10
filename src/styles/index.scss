@@ -1,0 +1,247 @@
+ /* COMMON VARIABLES */
+$background-color: #e8e8e8;
+$header-phone-width: 100%; 
+$gray-border: solid #c6bbbb 1px;
+$black-border: solid black 1px;
+
+/* SEARCH BOX STYLE VARIABLES */
+$header-color: purple; 
+$header-height: 160px; 
+$header-text-color: white; 
+$header-font: Arial; 
+$project-name-header-font-size: 70px; 
+
+$search-bar-heigth: 50px; 
+$search-bar-font-size: 35px;
+
+/* DEFAULT INPUT VARIABLES */
+$default-input-heigth: 50px; 
+$default-input-top-margin: 15px; 
+
+/* NOTE INPUT VARIABLES */
+$note-input-content-heigth: 200px; 
+
+
+/* NOTE VARIABLES */
+$note-content-min-heigth: 100px; 
+body{
+	background-color: $background-color;
+	margin: 0;
+}
+
+/* PHONE STYLE */
+.searchBox{
+
+	background-color: $header-color;
+	color: $header-text-color;
+	font-family: $header-font; 
+	height: $header-height; 
+
+	.projectName {
+		font-family: $header-font;
+		font-size: $project-name-header-font-size; 
+		line-height: $header-height/2;
+		width: $header-phone-width; 
+		text-align: center;
+	}
+	
+	.generalFilters {
+		height: $search-bar-heigth;
+		margin: ($header-height/2 - $search-bar-heigth)/2 auto; 
+		width: 80%;
+
+		.nameFilter{
+			border: 0;
+			border-bottom-left-radius: 10px;
+			border-top-left-radius: 10px;
+			float: left;	
+			font-size: $search-bar-font-size;
+			height: $search-bar-heigth; 
+			padding: 0;
+			width: 80%;
+		}
+		
+		.itemFilter{
+			border: 0;
+			border-bottom-right-radius: 10px;
+			border-top-right-radius: 10px;
+			border-left: $gray-border; 
+			float: left;
+			font-size: $search-bar-font-size - 15;
+			height: $search-bar-heigth;
+			width: 20%;
+		}
+	}
+}
+
+.sidebar{
+	height: $header-height; 
+
+	.dashButton, .archButton{
+		width: 100%;
+		border: 0;
+		border-top: $gray-border; 
+		background-color: $header-color; 
+		color: white;
+		height:  $header-height/2; 
+		font-size: $search-bar-font-size; 
+	}
+}
+
+.defaultInput {
+	height: $default-input-heigth; 
+	margin: $default-input-top-margin auto;
+	width: 80%;
+
+	.noteSelector{
+		border: $black-border;
+		border-bottom-left-radius: 10px;
+		border-top-left-radius: 10px;
+		float: left;	
+		font-size: $search-bar-font-size;
+		height: $default-input-heigth;
+		padding: 0;
+		width: 80%;
+		box-sizing: border-box;
+	}
+
+	.listSelector{
+		border: $black-border;
+		border-bottom-right-radius: 10px;
+		border-top-right-radius: 10px;
+		border-left: $gray-border;
+		float: left;
+		font-size: $search-bar-font-size - 10;
+		height: $default-input-heigth;
+		width: 20%;		 
+	}
+}
+
+.noteInput, .listInput {
+	margin: $default-input-top-margin auto;
+	width: 80%;
+	.titleInput{
+		box-sizing: border-box;
+	
+		border: $black-border;	
+		border-bottom: $gray-border;
+		border-top-left-radius: 10px;
+		border-top-right-radius: 10px;
+		float: left;
+		font-size: $search-bar-font-size - 10;
+		height: $search-bar-heigth;
+		width: 100%;
+		padding-left: 10px;
+	}	
+
+	.contentInput{
+		box-sizing: border-box;
+		border-left: $black-border;	
+		border-right: $black-border;
+		float: left;
+		font-size: $search-bar-font-size - 20;	
+		max-height: $note-input-content-heigth;
+		max-width: 100%; 
+		min-height: $note-input-content-heigth;
+		min-width: 100%; 
+		padding: 0;
+	}
+	
+	.input-list{
+		float: left;
+		width: 100%;
+
+		.item, .lastItem {  
+			height: $search-bar-heigth;
+			border: 0; 
+			border-bottom: $gray-border; 
+			border-left: $black-border;
+			border-right: $black-border;
+			
+			.itemInput {
+				border: 0;
+				float: left;
+				font-size:  $search-bar-font-size - 20;
+				height: 100%;
+				width: 95%;
+				padding: 0;
+			}
+
+			.itemButton {
+				border: 0;
+				background-color: white;
+				float: left;
+				font-size: 25px;
+				height: 100%;
+				width: 5%;
+				padding:0; 
+			}
+		}
+	}
+
+	.inputFooter, .listInputFooter{
+		border: $black-border;	
+		background-color: white;
+		border-bottom-left-radius: 10px;
+		border-bottom-right-radius: 10px;
+		border-top: $gray-border;
+		float: left;
+		font-size: $search-bar-font-size - 15;
+		height: $search-bar-heigth;
+		width: 100%; 
+		box-sizing: border-box;
+		
+		.sendButton, .cancelButton {
+			border: 0;
+			border-bottom: $black-border;
+			background-color: white;
+			float: right;
+			font-size: 25px;
+			height: $search-bar-heigth;
+			margin: 0;
+			width: 15%;
+		}
+
+
+		.sendButton{
+			border-bottom-right-radius: 10px;
+		}
+	}
+
+	.listInputFooter{
+		border-top: 0;
+	}
+}
+
+.itemList{
+	width: 80%;
+	margin: 15px auto;
+	
+	.note, .list{
+		box-sizing: border-box;
+		margin: 5px;
+		padding: 10px;
+		
+		.title, .content {
+			word-wrap: break-word;
+			white-space: pre-wrap;
+			font-family: $header-font;
+		}
+		
+		.title {
+			font-size: $search-bar-font-size + 10; 
+			font-weight: bold;
+		}
+
+		.content{
+			padding: 10px;
+			font-size: $search-bar-font-size - 10; 
+			min-height: $note-content-min-heigth;
+		}
+	}
+}
+
+
+/* .note, .list {
+	z-index: 1;
+} */

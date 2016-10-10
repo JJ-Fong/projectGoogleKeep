@@ -33,7 +33,7 @@ const notes = (state = [], action)  => {
 			state.map ( item => {
 				let new_item = item; 
 				if (item.id === action.payload.id) {
-					new_item.archived = action.payload.archived; 
+					new_item.archived = !new_item.archived; 
 					new_item.last_mod = moment().format('LLLL');
 				}
 				new_state.push(new_item); 

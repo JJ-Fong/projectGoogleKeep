@@ -1,5 +1,5 @@
 {
-  "name": "basic-webpack",
+  "name": "todo-react",
   "version": "0.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -25,9 +25,11 @@
     "npm": "^3.10.5",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
+    "uuid-v4": "^0.1.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.1"
   },
