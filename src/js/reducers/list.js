@@ -96,12 +96,39 @@ const lists = (state = [], action) => {
       state.map ( item => {
         let new_item = item; 
         if (item.id === action.payload.id) {
-          new_item.archived = action.payload.archived; 
+          new_item.archived = !new_item.archived ; 
         }
         new_state.push(new_item); 
       });
       return new_state; 
     }
+
+    case 'TOGGLE_EDIT_LIST': {
+      let new_state = [];
+      state.map ( item => {
+        let new_item = item; 
+          
+        if (item.id === action.payload.id) {
+          new_item.onChange = !new_item.onChange; 
+        }
+        new_state.push(new_item); 
+      });
+      return new_state; 
+    }
+
+    case 'UPDATE_LIST': {
+      let new_state = [];
+      state.map ( item => {
+        let new_item = item; 
+        if (item.id === action.payload.id) {
+          new_item.title = action.payload.title;
+          new_item.onChange = false;
+        }
+        new_state.push(new_item); 
+      });
+      return new_state; 
+    }
+
     default:
 			return state; 
 	}

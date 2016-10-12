@@ -12,6 +12,8 @@ import { name_filter } from './reducers/nameFilter'
 import { item_filter } from './reducers/itemFilter'
 import { todo_filter } from './reducers/todoFilter'
 import { archived_filter } from './reducers/archivedFilter'
+import { ignoreActions, filterActions } from 'redux-ignore'; 
+
 //Se exporta el css
 require('../styles/index.scss'); 
 
@@ -47,7 +49,6 @@ const store = createStore(reducers, persistedState);
 */
 
 const getVisibleItems = (list, name_filter, item_filter, archived_filter) => {
-  console.log(list); 
   switch (item_filter){ 
     case 'NOTAS': 
       list = list.filter(item => (item.item_code != 1)); 
@@ -56,20 +57,16 @@ const getVisibleItems = (list, name_filter, item_filter, archived_filter) => {
       list = list.filter(item => (item.item_code != 0)); 
       break;
   }
-  console.log(list); 
   
   if (name_filter > '') { 
     list = list.filter(item => (item.title.toUpperCase().includes(name_filter.toUpperCase()))); 
   }
   
-  console.log(list); 
-  console.log(archived_filter);
   if (archived_filter === 'ARCHIVED') {
     list = list.filter(item => (!item.archived)); 
   } else {
     list = list.filter(item => (item.archived)); 
   }
-  console.log(list); 
   return list; 
 };
 
@@ -91,7 +88,7 @@ const mergeListByDate = (list1, list2) => {
   while ((list1Counter < list1.length)&&(list2Counter < list2.length)) { 
     currentItem1 = list1[list1Counter]; 
     currentItem2 = list2[list2Counter]; 
-    if (currentItem2.created_int < currentItem1.created_int) { 
+    if (currentItem2.created_int > currentItem1.created_int) { 
       final_list.push(currentItem2); 
       list2Counter = list2Counter + 1; 
     } else {
@@ -255,12 +252,13 @@ const InputField = ({ selected, listitems }) => {
                     title: input.value,
                     description: content.value,
                     color: '#ffff8d',
-                    archived: false, 
+                    archived: true, 
                     created: moment().format('LLLL'),
                     last_mod: moment().format('LLLL'),
                     created_int: Date.now(), 
                     last_mod_int: Date.now(),
-                    item_code: 0
+                    item_code: 0,
+                    onChange: false
                   }
                 });
                 input.value = ""; 
@@ -312,9 +310,10 @@ const InputField = ({ selected, listitems }) => {
                       last_mod: moment().format('LLLL'),
                       created_int: Date.now(),
                       last_mod_int: Date.now(), 
-                      archived: false, 
+                      archived: true, 
                       todos: listitems,
-                      item_code: 1
+                      item_code: 1,
+                      onChange: false
                     }
                   }
                 ); 
@@ -427,42 +426,128 @@ const AppBody = ({ lists, notes , name_filter, item_filter, archived_filter}) =>
 };
 
 const Note = ({ note }) => {
-  return (
-    <div class="note"
-      style =  {{
-        backgroundColor: note.color
-      }}
-    >
-      <div class="title"> { note.title }</div> 
-      <div class="content"> { note.description } </div>
-      <cite class="created"> Created { note.created }</cite> <br/>
-      <cite class="modified"> Last modified { note.last_mod } </cite> 
-      <ItemFooter item = { note }/> 
-    </div> 
-  ); 
+  let edittitle, editcontent; 
+  if (note.onChange) {
+    return (
+      <div class="note"
+        style =  {{
+          backgroundColor: note.color
+        }}
+      >
+        <input class="edittitle" type="text" placeholder="Titulo" ref={ node => edittitle = node }/>
+        <textarea placeholder="Nota" class="editcontent" ref={ node => editcontent = node }/> 
+          
+        <button 
+        onClick = {
+        () => {
+          store.dispatch({
+            type: 'TOGGLE_EDIT_NOTE', 
+            payload: {
+              id: note.id
+            }
+          })
+        }
+        }>Cancelar</button> 
+        <button
+        onClick = {
+        () => {
+            store.dispatch({
+              type: 'UPDATE_NOTE', 
+              payload: {
+                id: note.id,
+                title: edittitle.value,
+                description: editcontent.value
+              }
+            })
+          }
+        }
+        >Done</button> 
+      </div> 
+    );
+  } else {
+    return (
+      <div class="note"
+        style =  {{
+          backgroundColor: note.color
+        }}
+      >
+        <div class="title"> { note.title }</div> 
+        <div class="content"> { note.description } </div>
+        <cite class="created"> Created { note.created }</cite> <br/>
+        <cite class="modified"> Last modified { note.last_mod } </cite> 
+        <ItemFooter item = { note }/> 
+      </div> 
+    ); 
+  }
 }; 
 
 const List = ({ list , todo_filter }) => {
-  return (
-    <div class="list"
-      style =  {{
-        backgroundColor: list.color,
-    }}
-    >
-      <div class="title"> { list.title }</div> 
-      <ul>
-      {
-        list.todos.map( todo => (
-          <Todo key={ todo.id } parent={ list.id } todo={ todo }/> 
-        )
-        )
-      }
-      </ul>
-      <cite class="created"> Created { list.created }</cite> <br/>
-      <cite class="modified"> Last modified { list.last_mod } </cite> 
-      <ListFooter item = { list }/> 
-    </div>  
-  );
+  let edittitle; 
+  if (list.onChange) {
+    return (
+      <div class="list"
+        style =  {{
+          backgroundColor: list.color
+        }}
+      >
+        <input class="edittitle" type="text" placeholder="Titulo" ref={ node => edittitle = node }/>
+        
+        <button 
+        onClick = {
+        () => {
+          store.dispatch({
+            type: 'TOGGLE_EDIT_LIST', 
+            payload: {
+              id: list.id
+            }
+          })
+        }
+        }>Cancelar</button> 
+        <button
+        onClick = {
+        () => {
+            store.dispatch({
+              type: 'UPDATE_LIST', 
+              payload: {
+                id: list.id,
+                title: edittitle.value
+              }
+            })
+          }
+        }
+        >Done</button> 
+        <ul>
+        {
+          list.todos.map( todo => (
+            <Todo key={ todo.id } parent={ list.id } todo={ todo }/> 
+          )
+          )
+        }
+        </ul>
+      </div> 
+    );
+  } else {
+    return (
+      <div class="list"
+        style =  {{
+          backgroundColor: list.color,
+      }}
+      >
+        <div class="title"> { list.title }</div> 
+        <ul>
+        {
+          list.todos.map( todo => (
+            <Todo key={ todo.id } parent={ list.id } todo={ todo }/> 
+          )
+          )
+        }
+        </ul>
+        <cite class="created"> Created { list.created }</cite> <br/>
+        <cite class="modified"> Last modified { list.last_mod } </cite> 
+        <ListFooter item = { list }/> 
+      </div>  
+    );
+  }
 }; 
 
 const Todo = ({ parent, todo }) => {
@@ -533,7 +618,18 @@ const ItemFooter = ({ item }) => {
         }
       }
       >{ item.archived ? 'Archivar' : 'Desarchivar'}</button> 
-      <button>Edit</button> 
+      <button
+      onClick = {
+        () => {
+          store.dispatch({
+            type: 'TOGGLE_EDIT_NOTE', 
+            payload: {
+              id: item.id
+            }
+          })
+        }
+      }
+      >Edit</button> 
     </div> 
   );
 }; 
@@ -579,8 +675,30 @@ const ListFooter = ({ item }) => {
         <option value="green" style={{ backgroundColor: "green"}}></option>
       </select>
 
-      <button>Archivar</button> 
-      <button>Edit</button>
+      <button
+      onClick = {
+        () => {
+          store.dispatch({
+            type: 'TOOGLE_ARCHIVAR_ITEM', 
+            payload: {
+              id: item.id
+            }
+          })
+        }
+      }
+      >{ item.archived ? 'Archivar' : 'Desarchivar'}</button> 
+      <button
+      onClick = {
+        () => {
+          store.dispatch({
+            type: 'TOGGLE_EDIT_LIST', 
+            payload: {
+              id: item.id
+            }
+          })
+        }
+      }
+      >Edit</button> 
       
     </div> 
   );

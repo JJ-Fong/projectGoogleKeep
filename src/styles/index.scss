@@ -221,6 +221,8 @@ body{
 		box-sizing: border-box;
 		margin: 5px;
 		padding: 10px;
+		width: 30%;
+		float: left;
 		
 		.title, .content {
 			word-wrap: break-word;
@@ -240,8 +242,3 @@ body{
 		}
 	}
 }
-
-
-/* .note, .list {
-	z-index: 1;
-} */

@@ -41,6 +41,34 @@ const notes = (state = [], action)  => {
 			return new_state; 
 		}
 
+		case 'TOGGLE_EDIT_NOTE': {
+			let new_state = [];
+			state.map ( item => {
+				let new_item = item; 
+				console.log(new_item.onChange);
+					
+				if (item.id === action.payload.id) {
+					new_item.onChange = !new_item.onChange; 
+				}
+				new_state.push(new_item); 
+			});
+			return new_state; 
+		}
+
+		case 'UPDATE_NOTE': {
+			let new_state = [];
+			state.map ( item => {
+				let new_item = item; 
+				if (item.id === action.payload.id) {
+					new_item.title = action.payload.title;
+					new_item.description = action.payload.description;  
+					new_item.onChange = false;
+				}
+				new_state.push(new_item); 
+			});
+			return new_state; 
+		}
+
 		default: 
 			return state; 
 	}
